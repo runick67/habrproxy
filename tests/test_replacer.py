@@ -13,6 +13,8 @@ class TestReplacer(TestCase):
                        'Сейчас™ на фоне уязвимости Logjam™ все в индустрии в '
                        'очередной раз обсуждают проблемы и особенности TLS.'],
                       ['Строка для тестов, проверка запятой.',
-                       'Строка™ для тестов™, проверка запятой.']]
+                       'Строка™ для тестов™, проверка запятой.'],
+                      ['Mütter', 'Mütter™'],
+                      ['ёжиков', 'ёжиков™']]
         for test_string, expected in test_cases:
             self.assertEqual(replacer.replace(test_string), expected)

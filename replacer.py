@@ -1,11 +1,10 @@
 import re
-from bs4 import BeautifulSoup
 from bs4.element import Comment
 
 
 WORD_LENGTH = 6
 ADDING_CHAR = '™'
-REG_EXP = r'\b[a-zа-яй]{' + str(WORD_LENGTH) + r'}\b'
+REG_EXP = r'\b\w{{{}}}\b'.format(WORD_LENGTH)
 
 
 def has_matches(text):
@@ -44,14 +43,11 @@ def tag_visible(element):
     return True
 
 
-def add_char_to_html(html_page):
+def add_char_to_html(soup):
     """ Adds '™' char ant the end of 6-char words in the web page
 
-    :param html_page: wab page
-    :return: new web page
+    :param soup: BeautifulSoup
     """
-    soup = BeautifulSoup(html_page, 'html.parser')
     for res in filter(tag_visible, soup.findAll(text=True)):
         if has_matches(res):
             res.replace_with(replace(res))
-    return str(soup)
